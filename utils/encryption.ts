@@ -50,7 +50,11 @@ export class Encryption {
 		combinedArray.set(iv);
 		combinedArray.set(encryptedContentArray, iv.length);
 
-		return btoa(String.fromCharCode(...combinedArray));
+		return btoa(
+			Array.from(combinedArray)
+				.map((byte) => String.fromCharCode(byte))
+				.join("")
+		);
 	}
 
 	static async decrypt(encryptedData: string): Promise<string> {
